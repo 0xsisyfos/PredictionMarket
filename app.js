@@ -1,4 +1,4 @@
-const contractAddress = '0xb0d9FdEE90EaBb94b1e65BDA57E241f13cFC178F';
+const contractAddress = 'CONTRACT_ADDRESS';
 const lineaSepoliaChainId = '0xe705';
 let provider, signer, contract;
 
