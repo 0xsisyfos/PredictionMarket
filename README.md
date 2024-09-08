@@ -315,7 +315,7 @@ async function switchToLineaSepolia() {
 
 
 ```
-### B. Testing the front-end locally
+### B. Testing the front-end
 
 Once you have deployed the dApp using Atlas:
 - In the `App.js` file replace `CONTRACT_ADDRESS` with your freshly deployed dApp address
@@ -332,7 +332,7 @@ You can serve the HTML file locally using Node.js with the http-server or expres
 
 3. Run the server:
 ```http-server```
-4. Open a browser and go to http://localhost:8080 to view your app.
+4. Open a browser and go to http://localhost:8080 to view your dApp.
 
 ### Using Python
 You can use Python's built-in http.server to serve the HTML file.
@@ -341,7 +341,7 @@ You can use Python's built-in http.server to serve the HTML file.
 
 2. Start a simple HTTP server, for Python 3: ```python3 -m http.server 8000```
 
-3. Open http://localhost:8000 in your browser to view your app.
+3. Open http://localhost:8000 in your browser to view your dApp.
 
 You  can now play around the dApp, while using an intuitive front-end.
 
