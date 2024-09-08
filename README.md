@@ -1,7 +1,7 @@
 
-# Building a dApp on Linea
+# Building a prediction market on Linea
 
-In this guide, we’ll build a decentralized application (dApp) on Linea, an Ethereum Layer 2 solution using zero-knowledge proofs. We’ll create a simple prediction market. By the end, you will learn:
+In this guide, we’ll build a decentralized application (dApp) on Linea, an Ethereum Layer 2 solution using zero-knowledge proofs. We’ll create a simple prediction market for ETH/USD price. By the end, you will learn:
 
 - The fundamentals of zkEVMs and Linea
 - How to build a prediction market dApp using an oracle like API3
@@ -27,11 +27,11 @@ We can distinguish at least four types of zkEVMs by the trade-offs they make bet
   </a>
 </div>
 
-For this guide, we will build on Linea. It is a Type 2 zkEVM, which means developers can write, test, compile, deploy, and verify smart contracts using traditional Ethereum tooling (e.g., Hardhat, Foundry, Remix, or Atlas). There are minor differences, which you can find in the [Linea Docs](https://docs.linea.build/developers/quickstart/ethereum-differences).
+For this guide, we will build on Linea. It is a Type 2 zkEVM, which means developers can write, test, compile, deploy, and verify smart contracts using traditional Ethereum tooling (e.g., Hardhat, Foundry, Remix, or Atlas). There are minor differences with Ethereum, which you can find in the [Linea Docs](https://docs.linea.build/developers/quickstart/ethereum-differences).
 
 ## Creating a prediction market in Solidity
 
-A prediction market is a type of decentralized application where users can bet on the likelihood of future events. When enough people participate, they can be considered as “social epistemic tools,” in so far that prices in these markets reflect the consensus on the likelihood of specific outcomes, such as election results.
+A prediction market is a type of decentralized application where users can bet on the likelihood of future events. When enough people participate, they can be considered as “social epistemic tools,” insofar as prices in these markets reflect the consensus on the likelihood of specific outcomes, such as election results.
 
 <div align="center">
   <a href="https://x.com/VitalikButerin/status/1827640377060233716?ref_src=twsrc%5Etfw">
@@ -65,9 +65,9 @@ The contract allows users to bet on whether Ethereum’s price will go up or dow
         distributeWinnings(priceIncreased);
     }
 
-### 2. Fetching Ethereum Price
+### 2. Fetching ETH Price
  
- The price feed is obtained using API3, an oracle that provides real-world data to blockchain networks. The `getLatestPrice()` function retrieves the latest ETH/USD price from API3's price feed. You can find different oracles on the [Linea docs](https://docs.linea.build/developers/tooling/oracles).
+ The price of ETH is obtained using API3, and IPoxy contract interface. The `getLatestPrice()` function retrieves the latest ETH/USD price from [API3's price feed](https://market.api3.org/linea-sepolia-testnet/eth-usd). You can find different oracles on the [Linea docs](https://docs.linea.build/developers/tooling/oracles).
 
     function getLatestPrice() public view returns (int224) {
         (int224 price,) = priceFeed.read();
@@ -77,7 +77,7 @@ The contract allows users to bet on whether Ethereum’s price will go up or dow
 
 ### 3. Placing Bets
 
-Users can place bets on whether the Ethereum price will go up or down during the betting period. The contract records each bet with its direction (up or down) and amount wagered.
+Users can place bets on whether the ETH price will go up or down during the betting period. The contract records each bet with its direction (up or down) and amount wagered in an array.
 
     function placeBet(BetDirection _direction) external payable onlyDuringBettingPeriod {
         require(msg.value > 0, "You must bet some ETH");
@@ -87,7 +87,7 @@ Users can place bets on whether the Ethereum price will go up or down during the
 
 ### 4. Distributing Winnings
 
-After the betting period closes, the contract determines which bets were correct and allocates the winnings. It checks whether the bet direction matches the outcome (up or down) and whether the bet has already been claimed. If a user’s bet matches the result, they receive twice the amount wagered. Winners can withdraw their earnings after the betting period. The contract checks the user’s balance of winnings and transfers the amount to them.
+After the betting period closes, the contract determines which bets were correct and allocates the winnings. It iterates through the Bet array, and, for each bet, checks whether the bet direction matches the outcome (up or down) and whether the bet has already been claimed. If a user’s bet matches the result, they receive twice the amount wagered. Winners can withdraw their earnings after the betting period. The contract checks the user’s balance of winnings and transfers the amount to them.
 
     function distributeWinnings(bool priceIncreased) internal {
         for (uint256 i = 0; i < bets.length; i++) {
@@ -224,6 +224,7 @@ To deploy this contract, we will use Atlas, which is a recent user-friendly IDE.
 [![Screenshot-2024-09-08-at-12-34-17.png](https://i.postimg.cc/mrTDQKds/Screenshot-2024-09-08-at-12-34-17.png)](https://postimg.cc/gxBmptFS)
 
 Once deployed, you will see the contract details (address, ABI, bytecode) in the **Deployed Contracts** section. You can now interact with the contract to open/close the betting period, place bets, and withdraw winnings.
+Note: You'll need to fund the contract so it can pay the winnings.
 
 Congratulations, you have just deployed your very first dApp on Linea Sepolia Testnet!
 
@@ -233,11 +234,11 @@ Congratulations, you have just deployed your very first dApp on Linea Sepolia Te
 
 ### A. Key functions
 
-`App.js` handles the key functions to manage MetaMask wallet connection/disconnection and network switching to **Linea Sepolia**. It imports **ethers.js** for interacting with the Ethereum blockchain.
+`App.js` handles the key functions to manage MetaMask wallet connection/disconnection and network switching to **Linea Sepolia**. It imports **ethers.js** for interacting with Linea Sepolia tesnet.
 
 **1. loadContractAbi**
 
-This function loads the ABI (Application Binary Interface) of the deployed contract, which is necessary for interacting with the contract on the Ethereum network.
+This function loads the ABI (Application Binary Interface) of the deployed contract, which is necessary for interacting with the contract on the Linea Sepolia testnet network.
 
 ```javascript
 async function loadContractAbi() {
@@ -252,7 +253,7 @@ async function loadContractAbi() {
 
 **2. connectMetaMask**
 
-This function connects the dApp to the MetaMask wallet, initializes the provider, signer, and manages network switching.
+This function connects the dApp to the MetaMask wallet, initializes the provider, signer, and manages network switching. Note that you can also use the [MetaMask SDK](https://docs.metamask.io/wallet/how-to/use-sdk/javascript/pure-js/)
 
 ```javascript
 async function connectMetaMask() {
@@ -317,9 +318,10 @@ async function switchToLineaSepolia() {
 ```
 ### B. Testing the front-end
 
-Once you have deployed the dApp using Atlas:
+Once you have deployed the contract on the network:
 - In the `App.js` file replace `CONTRACT_ADDRESS` with your freshly deployed dApp address
-- Create a JSON file named `contract_abi.json` in the same directory as your `index.html`file
+- Create a JSON file named `contract_abi.json` in the same directory as your `index.html` and `app.js` file
+- Note: if you deployed to Linea Mainnet, you'll have to change the chainID (in hex), and network RPC (see [Linea Network info](https://docs.linea.build/developers/quickstart/info-contracts))
 
 Note: in Atlas you can find both the contract address and ABI in the **Deployed Contracts** menu.
 
@@ -330,8 +332,8 @@ You can serve the HTML file locally using Node.js with the http-server or expres
 
 2. Navigate to the directory where your index.html file is located: ```cd /path/to/your/directory```
 
-3. Run the server:
-```http-server```
+3. Run the server: ```http-server```
+   
 4. Open a browser and go to http://localhost:8080 to view your dApp.
 
 ### Using Python
@@ -343,7 +345,7 @@ You can use Python's built-in http.server to serve the HTML file.
 
 3. Open http://localhost:8000 in your browser to view your dApp.
 
-You  can now play around the dApp, while using an intuitive front-end.
+You  can now play around the dApp while using an intuitive front-end.
 
 [![temp-Imagep-HMMUk.avif](https://i.postimg.cc/cLxkS0m2/temp-Imagep-HMMUk.avif)](https://postimg.cc/hfY18FN1)
 
