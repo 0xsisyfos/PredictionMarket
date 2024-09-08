@@ -1,0 +1,207 @@
+[
+    {
+      "type": "constructor",
+      "inputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "receive",
+      "stateMutability": "payable"
+    },
+    {
+      "type": "function",
+      "name": "bets",
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "better",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "direction",
+          "type": "uint8",
+          "internalType": "enum EthereumPriceBetting.BetDirection"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "internalType": "uint256"
+        },
+        {
+          "name": "claimed",
+          "type": "bool",
+          "internalType": "bool"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "closeBettingPeriod",
+      "inputs": [],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "endPrice",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "int224",
+          "internalType": "int224"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "getLatestPrice",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "int224",
+          "internalType": "int224"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "pendingWithdrawals",
+      "inputs": [
+        {
+          "name": "",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "placeBet",
+      "inputs": [
+        {
+          "name": "_direction",
+          "type": "uint8",
+          "internalType": "enum EthereumPriceBetting.BetDirection"
+        }
+      ],
+      "outputs": [],
+      "stateMutability": "payable"
+    },
+    {
+      "type": "function",
+      "name": "priceFeedAddress",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "startBettingPeriod",
+      "inputs": [],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "startPrice",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "int224",
+          "internalType": "int224"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "startTime",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "withdrawWinnings",
+      "inputs": [],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "event",
+      "name": "BetPlaced",
+      "inputs": [
+        {
+          "name": "better",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "direction",
+          "type": "uint8",
+          "indexed": false,
+          "internalType": "enum EthereumPriceBetting.BetDirection"
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "indexed": false,
+          "internalType": "uint256"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "BetResult",
+      "inputs": [
+        {
+          "name": "priceIncreased",
+          "type": "bool",
+          "indexed": false,
+          "internalType": "bool"
+        },
+        {
+          "name": "endPrice",
+          "type": "int224",
+          "indexed": false,
+          "internalType": "int224"
+        }
+      ],
+      "anonymous": false
+    }
+  ]
