@@ -153,7 +153,7 @@ After the betting period closes, the contract determines which bets were correct
             priceFeed = IProxy(priceFeedAddress);
         }
 
-        // The betting period now lasts for only 5 minutes (300 seconds)
+        // The betting period now lasts for only 24 hours
         modifier onlyDuringBettingPeriod() {
             require(block.timestamp < startTime + 24 hours, "Betting period over");
             _;
