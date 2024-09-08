@@ -1,0 +1,161 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --background-color: #f0f3f6;
+    --text-color: #2c3e50;
+    --card-background: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --bet-up-color: #2ecc71;
+    --bet-down-color: #e74c3c;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h1, h2 {
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.card {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+button, input {
+    margin: 10px 0;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+button:hover {
+    transform: scale(1.02);
+}
+
+button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+#placeBetUp {
+    background-color: var(--bet-up-color);
+}
+
+#placeBetUp:hover {
+    background-color: #27ae60;
+}
+
+#placeBetDown {
+    background-color: var(--bet-down-color);
+}
+
+#placeBetDown:hover {
+    background-color: #c0392b;
+}
+
+input {
+    width: calc(100% - 40px);
+    border: 1px solid #bdc3c7;
+}
+
+#latestPrice, #bettingStatus, #networkStatus, #transactionStatus {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    box-shadow: var(--shadow);
+}
+
+table, th, td {
+    border: 1px solid #e0e0e0;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 20px; /* Add some space below the button group */
+}
+
+.button-group button {
+    flex: 1;
+    margin: 5px;
+}
+
+#withdrawButton {
+    display: block;
+    width: 100%;
+    max-width: 300px; /* Adjust this value as needed */
+    margin: 20px auto 0; /* Center the button and add top margin */
+}
+
+
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+#connectButton {
+    margin: 0;
+}
