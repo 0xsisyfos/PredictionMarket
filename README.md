@@ -46,7 +46,7 @@ We will build a simple prediction market for the price of Ethereum in Solidity. 
 The contract allows users to bet on whether Ethereum’s price will go up or down in the next 24h. It uses the modifier `OnlyDuringBettingPeriod()` and functions `startBettingPeriod()` and `closeBettingPeriod()` to control when to open/close the ETH prediction market and to only allow bets during that time.
 
     modifier onlyDuringBettingPeriod() {
-        require(block.timestamp < startTime + 5 minutes, "Betting period over");
+        require(block.timestamp < startTime + 24 hours, "Betting period over");
         _;
     }
 
@@ -56,7 +56,7 @@ The contract allows users to bet on whether Ethereum’s price will go up or dow
     }
 
     function closeBettingPeriod() external {
-        require(block.timestamp >= startTime + 5 minutes, "Betting period not over");
+        require(block.timestamp >= startTime + 24 hours, "Betting period not over");
         endPrice = getLatestPrice();
 
         bool priceIncreased = endPrice > startPrice;
