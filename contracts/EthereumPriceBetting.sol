@@ -19,14 +19,14 @@ contract EthereumPriceBetting {
     }
 
     uint256 public startTime;
-    int224 public startPrice;
-    int224 public endPrice;
+    int256 public startPrice;
+    int256 public endPrice;
 
     Bet[] public bets;
     mapping(address => uint256) public pendingWithdrawals;
 
     event BetPlaced(address indexed better, BetDirection direction, uint256 amount);
-    event BetResult(bool priceIncreased, int224 endPrice);
+    event BetResult(bool priceIncreased, int245 endPrice);
 
     // Hardcoded API3 proxy address for Ethereum/USD price feed
     address public constant priceFeedAddress = 0xa47Fd122b11CdD7aad7c3e8B740FB91D83Ce43D1;
@@ -62,8 +62,8 @@ contract EthereumPriceBetting {
         distributeWinnings(priceIncreased);
     }
 
-    function getLatestPrice() public view returns (int224) {
-        (int224 price,) = priceFeed.read(); // Using API3's `read()` function
+    function getLatestPrice() public view returns (int256) {
+        (int256 price,) = priceFeed.read(); // Using API3's `read()` function
         require(price > 0, "Failed to retrieve price");
         return price;
     }
