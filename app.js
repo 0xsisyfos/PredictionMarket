@@ -278,7 +278,7 @@ function updateBettingButtons(isOpen, canClose) {
 
 async function fetchBettingStatus() {
     try {
-        const bettingDuration = 300;
+        const bettingDuration = 86400;
         const startTime = await contract.startTime();
         const endPrice = await contract.endPrice();
 
